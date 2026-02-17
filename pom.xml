@@ -12,6 +12,7 @@
 	<artifactId>bookmytravel</artifactId>
 	<version>1.0.3</version>
 	<name>bookmytravel</name>
+    <packaging>war</packaging>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
