@@ -72,8 +72,8 @@ pipeline {
                                 echo 'Tagging and Pushing Docker Image to ECR...'
                                 sh '''
                                     docker images
-                                    docker tag bookmytravel:latest 030796673008.dkr.ecr.ap-south-1.amazonaws.com/bookmytravel:latest
-                                    docker push 030796673008.dkr.ecr.ap-south-1.amazonaws.com/bookmytravel:latest
+                                    docker tag bookmyplan:latest 030796673008.dkr.ecr.ap-south-1.amazonaws.com/bookmyplan:latest
+                                    docker push 030796673008.dkr.ecr.ap-south-1.amazonaws.com/bookmyplan:latest
                                 '''
                                 echo 'Docker Image Pushed to Amazon ECR Successfully!'
                             }
@@ -85,9 +85,9 @@ pipeline {
        steps {
                        echo 'Cleaning up Docker images...'
                        sh '''
-                         docker images bookmytravel -q | xargs -r docker rmi -f
-                         docker images sujitchalvade/bookmytravel -q | xargs -r docker rmi -f
-                         docker images 030796673008.dkr.ecr.ap-south-1.amazonaws.com/bookmytravel -q | xargs -r docker rmi -f
+                         docker images bookmyplan -q | xargs -r docker rmi -f
+                         docker images sujitchalvade/bookmyplan -q | xargs -r docker rmi -f
+                         docker images 030796673008.dkr.ecr.ap-south-1.amazonaws.com/bookmyplan -q | xargs -r docker rmi -f
 
                          docker image prune -f
                        '''
