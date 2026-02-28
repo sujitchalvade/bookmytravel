@@ -54,7 +54,7 @@ pipeline {
             }
         }*/
        stage('Upload Docker Image to AWS ECR'){
-        steps {
+			steps {
                         script {
                             withDockerRegistry([credentialsId: 'ecr:ap-south-1:ecr-credentials', url: "030796673008.dkr.ecr.ap-south-1.amazonaws.com"]) {
                                 echo 'Tagging and Pushing Docker Image to ECR...'
@@ -83,3 +83,4 @@ pipeline {
                        echo 'Docker cleanup completed!'
         }
     }
+}
