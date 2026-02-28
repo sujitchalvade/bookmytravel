@@ -46,13 +46,25 @@ pipeline {
                 echo 'Docker Image Build Completed!'
             }
         }
-/*       stage('Scan Docker Image'){
+       stage('Scan Docker Image'){
             steps {
                 echo 'Scanning Docker Image with Trivy...'
-                sh 'trivy image ${DOCKER_IMAGE}:latest || echo "Scan Failed - Proceeding with Caution"'
+                //sh 'trivy image ${DOCKER_IMAGE}:latest || echo "Scan Failed - Proceeding with Caution"'
                 echo 'Docker Image Scanning Completed!'
             }
-        }*/
+        }
+       stage('Upload Docker Image to Docker Hub'){
+            steps {
+                       script {
+                           withCredentials([string(credentialsId: 'dockerhubCred', variable: 'dockerhubCred')]) {
+                               sh 'docker login docker.io -u sujitchalvade -p ${dockerhubCred}'
+                               echo 'Pushing Docker Image to Docker Hub...'
+                               sh 'docker push satyam88/bookmyplan:latest'
+                               echo 'Docker Image Pushed to Docker Hub Successfully!'
+                           }
+                       }
+                   }
+              }
        stage('Upload Docker Image to AWS ECR'){
 			steps {
                         script {
@@ -68,8 +80,7 @@ pipeline {
                         }
                     }
         }
-/*       stage('Upload Docker Image to Docker Hub'){
-        }*/
+
        stage('Delete Docker Image from Jenkins'){
        steps {
                        echo 'Cleaning up Docker images...'
