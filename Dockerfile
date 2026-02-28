@@ -8,16 +8,16 @@ LABEL maintainer="sujit.chalvade@example.com"
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
 # Create a user for running the application
-RUN useradd -m bookmytrvel
+RUN useradd -m bookmyplan
 
 # Copy your JAR file into the webapps directory
-COPY ./target/bookmytrvel*.jar /usr/local/tomcat/webapps/
+COPY ./target/bookmyplan*.jar /usr/local/tomcat/webapps/
 
 # Expose the default Tomcat port
 EXPOSE 8080
 
-# Set the user to 'bookmytrvel' for security
-USER bookmytrvel
+# Set the user to 'bookmyplan' for security
+USER bookmyplan
 
 # Default command to run Tomcat
 CMD ["catalina.sh", "run"]

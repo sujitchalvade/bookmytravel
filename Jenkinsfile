@@ -34,15 +34,15 @@ pipeline {
                 echo 'Creating WAR Artifact...'
                 sh 'mvn clean package'
                 sh '''
-                    cp target/*.jar target/bookmyplan-1.0.3.jar
+                    cp target/*.jar target/bookmyplan-1.0.$(BUILD_NUMBER).jar
                 '''
-                echo 'WAR Artifact Created Successfully!'
+                echo 'JAR Artifact Created Successfully!'
             }
         }
        stage('Build and Tag Docker Image'){
             steps {
                 echo 'Building Docker Image with Tags...'
-                sh "docker build -t sujitchalvade/bookmytravel:latest -t makemytrip:latest ."
+                sh "docker build -t sujitchalvade/bookmyplan:latest -t bookmyplan:latest ."
                 echo 'Docker Image Build Completed!'
             }
         }
