@@ -80,9 +80,21 @@ pipeline {
                         }
                     }
         }
-
+       stage('Upload Docker Image to Nexus') {
+            steps {
+                         script {
+                             withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                                 sh 'docker login http://13.201.96.204:8085/repository/bookmyplan/ -u admin -p ${PASSWORD}'
+                                 echo "Push Docker Image to Nexus : In Progress"
+                                 sh 'docker tag bookmyplan 13.201.96.204:8085/bookmyplan:latest'
+                                 sh 'docker push 13.201.96.204:8085/bookmyplan'
+                                 echo "Push Docker Image to Nexus : Completed"
+                             }
+                         }
+                    }
+            }
        stage('Delete Docker Image from Jenkins'){
-       steps {
+            steps {
                        echo 'Cleaning up Docker images...'
                        sh '''
                          docker images bookmyplan -q | xargs -r docker rmi -f
@@ -92,7 +104,7 @@ pipeline {
                          docker image prune -f
                        '''
                        echo 'Docker cleanup completed!'
+            }
         }
     }
-}
 }
