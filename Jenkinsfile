@@ -100,7 +100,6 @@ pipeline {
                          docker images bookmyplan -q | xargs -r docker rmi -f
                          docker images sujitchalvade/bookmyplan -q | xargs -r docker rmi -f
                          docker images 030796673008.dkr.ecr.ap-south-1.amazonaws.com/bookmyplan -q | xargs -r docker rmi -f
-
                          docker image prune -f
                        '''
                        echo 'Docker cleanup completed!'
