@@ -31,7 +31,7 @@ pipeline {
                 scannerHome = tool 'qube'
             }
             steps {
-                echo 'QStarting SonarQube Code Quality Scan ...'
+                echo 'Starting SonarQube Code Quality Scan ...'
                 withSonarQubeEnv('sonar-server') {
                     sh "${scannerHome}/bin/sonar-scanner"
                     sh 'mvn sonar:sonar'
