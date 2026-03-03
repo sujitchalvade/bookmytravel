@@ -26,9 +26,23 @@ pipeline {
                 echo 'JUnit Test Cases Completed Successfully!'
             }
         }
-/*        stage('Code Analysis using Sonar') {
+        stage('Sonarqube') {
+            environment {
+                scannerHome = tool 'qube'
+            }
+            steps {
+                echo 'QStarting SonarQube Code Quality Scan ...'
+                withSonarQubeEnv('sonar-server') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                    sh 'mvn sonar:sonar'
+                }
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+                echo 'Quality Gate Check Completed!'
+            }
+        }
 
-        }*/
         stage('Code Package') {
             steps {
                 echo 'Creating WAR Artifact...'
