@@ -26,7 +26,7 @@ pipeline {
                 echo 'JUnit Test Cases Completed Successfully!'
             }
         }
-        stage('Sonarqube') {
+        stage('Sonarqube Code Quality') {
             environment {
                 scannerHome = tool 'qube'
             }
